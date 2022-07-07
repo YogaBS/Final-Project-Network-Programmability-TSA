@@ -1,0 +1,117 @@
+=======KONFIGURASI VLAN (SW1)==========
+Switch(config)#vlan 10
+Switch(config-vlan)#name VLAN10
+Switch(config-vlan)#ex
+Switch(config)#vlan 20
+Switch(config-vlan)#name VLAN20
+Switch(config-vlan)#ex
+Switch(config)#vlan 30
+Switch(config-vlan)#name VLAN30
+Switch(config-vlan)#exit
+
+=======IP ADDRESS VLAN (SW1)==========
+Switch(config)#int vlan 10
+Switch(config-if)#ip address 192.168.50.1 255.255.255.0
+Switch(config-if)#no sh
+Switch(config-if)#exit
+Switch(config)#int vlan 20
+Switch(config-if)#ip address 192.168.60.1 255.255.255.0
+Switch(config-if)#no sh
+Switch(config-if)#exit
+Switch(config)#int vlan 30
+Switch(config-if)#ip address 192.168.70.1 255.255.255.0
+Switch(config-if)#no sh
+Switch(config-if)#exit
+
+=======ACCESS VLAN TO INTERFACE(SW1)==========
+Switch(config)#int gig1/0/3
+Switch(config-if)#switchport mode access
+Switch(config-if)#switchport access vlan 10
+Switch(config-if)#exit
+Switch(config)#int gig1/0/4
+Switch(config-if)#switchport mode access
+Switch(config-if)#switchport access vlan 20
+Switch(config-if)#exit
+Switch(config)#int gig1/0/5
+Switch(config-if)#switchport mode access
+Switch(config-if)#switchport access vlan 30
+Switch(config-if)#exit
+Switch(config)#ip routing
+
+=======konfigurasi interface dan switchport(SW1)==========
+interface g1/0/1 
+desc Tersambung ke R1
+no switchport
+ip address 192.168.11.2 255.255.255.252
+no sh
+interface g1/0/2
+desc tersambung ke SW2
+switchport mode trunk
+switchport trunk allowed vlan 10,20,30
+exit
+
+==========ROUTING OSPF(SW1)===========
+router ospf 1
+network ke (R1) 0.0.0.3 area 0
+network ke (vlan 10) 0.0.0.255 area 0
+network ke (vlan 20) 0.0.0.255 area 0
+network ke (vlan 30) 0.0.0.255 area 0 
+
+=======KONFIGURASI VLAN (SW2)==========
+Switch(config)#vlan 10
+Switch(config-vlan)#name VLAN10
+Switch(config-vlan)#ex
+Switch(config)#vlan 20
+Switch(config-vlan)#name VLAN20
+Switch(config-vlan)#ex
+Switch(config)#vlan 30
+Switch(config-vlan)#name VLAN30
+Switch(config-vlan)#exit
+
+=======IP ADDRESS VLAN (SW2)==========
+Switch(config)#int vlan 10
+Switch(config-if)#ip address 192.168.50.2 255.255.255.0
+Switch(config-if)#no sh
+Switch(config-if)#exit
+Switch(config)#int vlan 20
+Switch(config-if)#ip address 192.168.60.2 255.255.255.0
+Switch(config-if)#no sh
+Switch(config-if)#exit
+Switch(config)#int vlan 30
+Switch(config-if)#ip address 192.168.70.2 255.255.255.0
+Switch(config-if)#no sh
+Switch(config-if)#exit
+
+=======ACCESS VLAN TO INTERFACE(SW2)==========
+Switch(config)#int gig1/0/3
+Switch(config-if)#switchport mode access
+Switch(config-if)#switchport access vlan 10
+Switch(config-if)#exit
+Switch(config)#int gig1/0/4
+Switch(config-if)#switchport mode access
+Switch(config-if)#switchport access vlan 20
+Switch(config-if)#exit
+Switch(config)#int gig1/0/5
+Switch(config-if)#switchport mode access
+Switch(config-if)#switchport access vlan 30
+Switch(config-if)#exit
+Switch(config)#ip routing
+
+=======konfigurasi interface dan switchport(SW2)==========
+interface g1/0/1 
+desc Tersambung ke R1
+no switchport
+ip address 192.168.11.2 255.255.255.252
+no sh
+interface g1/0/2
+desc tersambung ke SW2
+switchport mode trunk
+switchport trunk allowed vlan 10,20,30
+exit
+
+==========ROUTING OSPF(SW2)===========
+router ospf 1
+network ke (R1) 0.0.0.3 area 0
+network ke (vlan 10) 0.0.0.255 area 0
+network ke (vlan 20) 0.0.0.255 area 0
+network ke (vlan 30) 0.0.0.255 area 0 
